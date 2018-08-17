@@ -9,4 +9,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    override fun onStart() {
+        super.onStart()
+        if(supportFragmentManager.findFragmentById(R.id.containerMain)==null){
+            val fragment = TranslateFragment()
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.containerMain,fragment)
+                    .commit()
+        }
+    }
+
+    fun startLaguageFragment(){
+        val fragment = LanguageFragment()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.containerMain,fragment)
+                .addToBackStack(null)
+                .commit()
+    }
 }
