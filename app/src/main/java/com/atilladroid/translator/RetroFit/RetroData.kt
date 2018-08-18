@@ -3,9 +3,9 @@ package com.atilladroid.translator.RetroFit
 import java.util.*
 
 data class Translate(
-        val code :Int,
-        val lang:String,
-        val text:Array<String>
+        val code :Int = 0,
+        val lang:String = "",
+        val text:List<String> = listOf()
 )
 
 data class Langs(

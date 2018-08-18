@@ -1,22 +1,19 @@
 package com.atilladroid.translator
 
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.atilladroid.translator.RetroFit.Const
-import com.atilladroid.translator.RetroFit.YandexApi
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_translate.*
-import timber.log.Timber
+import org.koin.android.architecture.ext.sharedViewModel
 
 
 class TranslateFragment : Fragment() {
 
-   lateinit var  api: YandexApi
+    val viewModule: ViewModuleTranslate by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,33 +24,15 @@ class TranslateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         api= YandexApi.create()
+        viewModule.translateTextLiveData.observe(this, Observer { it->
+            tv_translate.text = it
+        })
 
         bt_translate.setOnClickListener {
-
-            if (et_text.text.isNotEmpty()){
-                val text = et_text.text.toString()
-                api.getTranslate(Const.key,"ru-en",text)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { var text=""
-                            it.text.forEach { text+=it }
-                            tv_translate.text =text }
-            }else langs()
-
+            if(et_text.text.isNotEmpty()){
+                viewModule.translate(et_text.text.toString())
+            }
         }
-
-
-
-    }
-
-    fun langs(){
-     api.getLangs(Const.key,"en")
-             .subscribeOn(Schedulers.io())
-             .observeOn(AndroidSchedulers.mainThread())
-             .subscribe { Timber.d( "MY ${it.langs}") }
-
-
     }
 
 
