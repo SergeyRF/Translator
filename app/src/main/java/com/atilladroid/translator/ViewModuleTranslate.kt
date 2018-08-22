@@ -3,14 +3,17 @@ package com.atilladroid.translator
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.atilladroid.translator.RetroFit.Const
+import com.atilladroid.translator.RetroFit.DictionaryApi
+import com.atilladroid.translator.RetroFit.DictionaryMy
 import com.atilladroid.translator.RetroFit.YandexApi
 import kotlinx.coroutines.experimental.*
 import timber.log.Timber
 
 
-class ViewModuleTranslate(val api: YandexApi) : ViewModel() {
+class ViewModuleTranslate(val api: YandexApi, val apiDictionary:DictionaryApi) : ViewModel() {
 
 
+    val dictionaryTextLD=SingleLiveEvent<DictionaryMy>()
     val translateTextLiveData = MutableLiveData<String>()
     val startFragmendLiveData = SingleLiveEvent<ConstantFragment>()
     val mapLanguageLiveData = MutableLiveData<Map<String, String>>()
@@ -27,8 +30,9 @@ class ViewModuleTranslate(val api: YandexApi) : ViewModel() {
         laguageBefore = "en"
         launch(CommonPool) {
 
-            awaitAll(async { downloadLangs().join() })
-            setLanguage()
+           val a= async { downloadLangs()}
+
+            a.await().apply { setLanguage() }
         }
     }
 
@@ -44,6 +48,7 @@ class ViewModuleTranslate(val api: YandexApi) : ViewModel() {
 
                 var translateText = translateArray.await()
                 translateTextLiveData.postValue(translateText.text[0])
+                Timber.d("${translateText.text}")
 
             }
         }
@@ -61,13 +66,29 @@ class ViewModuleTranslate(val api: YandexApi) : ViewModel() {
         startFragmendLiveData.value = ConstantFragment.TRANSLATE
     }
 
-    suspend fun downloadLangs() =
+    fun downloatMoreTranslate(text: String){
 
+        runBlocking {
             launch(CommonPool) {
-                val languageGet = api.getLangs(Const.key, "ru").await()
-                // Timber.d(api.getLangs(Const.key, "ru").await().langs.toString())
-                mapLanguageLiveData.postValue(languageGet.langs)
+                val moreGet = apiDictionary.getDictionary(Const.keyDictionary,
+                        "${laguageBefore}-${languageAfter}", text,"ru")
+                Timber.d("${moreGet.await().def}")
+                dictionaryTextLD.postValue(moreGet.await())
+
             }
+        }
+    }
+
+    suspend fun downloadLangs() :Boolean{
+
+        /* launch(CommonPool) {*/
+        val languageGet = api.getLangs(Const.key, "ru").await()
+        // Timber.d(api.getLangs(Const.key, "ru").await().langs.toString())
+        mapLanguageLiveData.postValue(languageGet.langs)
+        return true
+
+        /*}*/
+    }
 
     fun getNowLanguage(): String {
         return if (flagBeforeOrAfter) {
