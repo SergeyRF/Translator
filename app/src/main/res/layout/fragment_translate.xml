@@ -1,81 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TranslateFragment">
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="английский"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/view1"
-        android:gravity="center"
-        android:layout_marginLeft="15dp"
-        android:textColor="@color/Black"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="русский"
-        android:textSize="20sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/view1"
-        android:layout_marginRight="15dp"
-        android:gravity="center"
-        android:textColor="@color/Black"
-        />
-
-    <ImageView
+        android:id="@+id/tv_languageBefore"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/view1"
-        android:src="@drawable/ic_repear"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
-        android:background="@color/colorPrimary"
-        android:id="@+id/view1"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/view1"
-        android:textSize="20sp"
-        android:id="@+id/et_text"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_translate"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_text"
-        android:layout_margin="15dp"
-        android:text="Translate"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/bt_translate"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
+        android:text="английский"
         android:textColor="@color/Black"
         android:textSize="20sp"
+        app:layout_constraintRight_toLeftOf="@+id/iv_repear"
+        app:layout_constraintBottom_toTopOf="@+id/view1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_languageAfter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="русский"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/view1"
+        app:layout_constraintLeft_toRightOf="@+id/iv_repear"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_repear"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_repear"
+        app:layout_constraintBottom_toTopOf="@+id/view1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+    <Button
+        android:id="@+id/bt_translate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="Translate"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_text" />
+
+    <TextView
         android:id="@+id/tv_translate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/bt_translate"
 
         />
-
 
 
 </android.support.constraint.ConstraintLayout>

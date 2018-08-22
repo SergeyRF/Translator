@@ -24,7 +24,7 @@ interface YandexApi {
 
     @POST("getLangs")
     fun getLangs(@Query("key") key: String,
-                 @Query("ui") ui: String): Langs
+                 @Query("ui") ui: String):Deferred< Langs>
 
     companion object {
         fun create(): YandexApi {
@@ -33,7 +33,7 @@ interface YandexApi {
                     .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
                     .addConverterFactory(GsonConverterFactory.create())
 //                    .baseUrl("https://translate.yandex.net/retroHelp/v1.5/tr.json/")
-                    .baseUrl("https://translate.yandex.net/api/v1.5/tr.json/translate")
+                    .baseUrl("https://translate.yandex.net/api/v1.5/tr.json/")
                     .build()
             return retrofit.create(YandexApi::class.java)
         }

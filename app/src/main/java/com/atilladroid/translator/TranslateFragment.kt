@@ -27,12 +27,31 @@ class TranslateFragment : Fragment() {
         viewModule.translateTextLiveData.observe(this, Observer { it->
             tv_translate.text = it
         })
+        viewModule.languageAfterLD.observe(this, Observer { after->
+            tv_languageAfter.text = after!!
+        })
+
+        viewModule.laguageBeforeLD.observe(this, Observer { before->
+            tv_languageBefore.text = before!!
+        })
 
         bt_translate.setOnClickListener {
             if(et_text.text.isNotEmpty()){
                 viewModule.translate(et_text.text.toString())
             }
         }
+
+        tv_languageBefore.setOnClickListener {
+            viewModule.setLangugeBefore()
+        }
+        tv_languageAfter.setOnClickListener {
+            viewModule.setLanguageAfter()
+        }
+        iv_repear.setOnClickListener {
+            viewModule.repear()
+        }
+
+
     }
 
 
