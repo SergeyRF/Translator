@@ -44,17 +44,17 @@ class TranslateFragment : Fragment() {
                 def.forEach {
 
                     text += it.text
-                    if (it.pos!= "null") {
+                    if (it.pos != "null") {
                         text += ",\t" + it.pos
                     }
-                    if (it.gen!=null) {
+                    if (it.gen != null) {
                         text += ",\t" + it.gen
                     }
                     if (it.num != 0) {
                         text += ",\t ${it.num}"
                     }
 
-                        text +=  "\n" + addText(it.tr)+"\n"
+                    text += "\n" + addText(it.tr) + "\n"
 
                     /*if (it.syn.toString() != "null") {
                         text += addText(it.syn)
@@ -104,16 +104,16 @@ class TranslateFragment : Fragment() {
         var text = ""
         list.forEach {
 
-            text += it.text+"\n"
-           /* if (it.pos != "null") {
-                text += ",\t" + it.pos
-            }
-            if (it.gen != "null") {
-                text += ",\t" + it.gen
-            }
-            if (it.num != 0) {
-                text += ",\t ${it.num}" + "\n"
-            }*/
+            text += it.text + "\n"
+            /* if (it.pos != "null") {
+                 text += ",\t" + it.pos
+             }
+             if (it.gen != "null") {
+                 text += ",\t" + it.gen
+             }
+             if (it.num != 0) {
+                 text += ",\t ${it.num}" + "\n"
+             }*/
         }
         return text
     }
